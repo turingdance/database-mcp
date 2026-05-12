@@ -1,0 +1,36 @@
+{
+  "name": "@turingdance/database-mcp",
+  "version": "1.0.0",
+  "description": "MCP 数据库工具服务（支持 MySQL / MariaDB / TiDB / PostgreSQL / SQLite / Oracle / SQL Server）",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "database-mcp": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "database",
+    "mysql",
+    "mariadb",
+    "tidb",
+    "postgresql",
+    "sqlite",
+    "oracle",
+    "sqlserver"
+  ],
+  "author": "271151388@qq.com",
+  "license": "ISC",
+  "dependencies": {
+    "@cfworker/json-schema": "^4.1.1",
+    "@modelcontextprotocol/server": "^2.0.0-alpha.2",
+    "better-sqlite3": "^12.9.0",
+    "mysql2": "^3.22.3",
+    "oracledb": "^6.10.0",
+    "pg": "^8.20.0",
+    "zod": "^4.4.3",
+    "tedious": "^18.0.0"
+  }
+}

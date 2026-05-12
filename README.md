@@ -250,32 +250,6 @@ AI 会：
 
 ---
 
-## 发布到 npm
-
-### 1. 登录 npm
-
-```bash
-npm login
-# 输入用户名: turingdance
-# 输入密码
-# 输入邮箱
-```
-
-### 2. 发布包
-
-```bash
-cd /path/to/database-mcp
-npm publish --access public
-```
-
-### 3. 验证发布
-
-```bash
-npm view @turingdance/database-mcp
-```
-
----
-
 ## 技术栈
 
 - Node.js (ESM) + `@modelcontextprotocol/server` v2 + zod v4

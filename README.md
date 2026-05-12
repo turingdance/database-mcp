@@ -1,30 +1,33 @@
 # database-mcp
 
-> 一个 MCP 服务，一套接口，直连 MySQL / MariaDB / TiDB / PostgreSQL / SQLite / Oracle / SQL Server 七种数据库。
+> [!NOTE]
+> This README is available in [简体中文](README.zh-CN.md).
 
-## 快速开始
+> An MCP server with one unified API, connecting directly to MySQL, MariaDB, TiDB, PostgreSQL, SQLite, Oracle, SQL Server, and seven other databases.
 
-### 方式一：直接运行（npx）
+## Quick Start
+
+### Option 1: Direct Execution (npx)
 
 ```bash
-# 直接执行，无需安装
+# Run directly without installation
 npx @turingdance/database-mcp
 
-# 或指定数据库环境变量
+# Or specify database environment variables
 DB_TYPE=mysql DB_HOST=localhost DB_USER=root DB_PASSWORD=123456 DB_NAME=test npx @turingdance/database-mcp
 ```
 
-### 方式二：本地安装
+### Option 2: Local Installation
 
 ```bash
-# 全局安装
+# Global installation
 npm install -g @turingdance/database-mcp
 
-# 或在项目中安装
+# Or install in your project
 npm install @turingdance/database-mcp
 ```
 
-### 方式三：本地运行源码
+### Option 3: Run from Source
 
 ```bash
 git clone https://github.com/turingdance/database-mcp.git
@@ -35,44 +38,44 @@ npm start
 
 ---
 
-## 特色
+## Features
 
-- **一套配置，七种数据库** — 切换数据库只需改一个环境变量 `DB_TYPE`
-- **MySQL 兼容** — MariaDB、TiDB 共用 `mysql2` 驱动，零额外依赖
-- **敏感操作防护** — INSERT / UPDATE / DELETE / DROP / TRUNCATE / ALTER 等需用户显式确认
-- **风险分级拦截** — 高危（不可逆）、中危（数据变更）、低危（只读）自动检测
-- **参数化查询** — 防 SQL 注入
-- **动态加载驱动** — 按需加载，启动迅速
+- **One config, seven databases** — Switch databases by changing just one env var `DB_TYPE`
+- **MySQL compatible** — MariaDB and TiDB share the `mysql2` driver, zero extra dependencies
+- **Sensitive operation protection** — INSERT/UPDATE/DELETE/DROP/TRUNCATE/ALTER require explicit user confirmation
+- **Risk-based interception** — High-risk (irreversible), medium-risk (data changes), low-risk (read-only) auto-detection
+- **Parameterized queries** — SQL injection prevention
+- **Dynamic driver loading** — Loads on demand for fast startup
 
 ---
 
-## 工具
+## Tools
 
-| 工具 | 说明 | 风险 |
+| Tool | Description | Risk Level |
 |---|---|---|
-| `connect_db` | 测试连接 | 低 |
-| `list_tables` | 列出所有表 | 低 |
-| `describe_table` | 查看表结构 | 低 |
-| `query` | SELECT 查询 | 低 |
-| `execute` | 写操作（需 confirm） | 按语句分级 |
+| `connect_db` | Test database connection | Low |
+| `list_tables` | List all tables | Low |
+| `describe_table` | View table structure | Low |
+| `query` | SELECT query | Low |
+| `execute` | Write operations (requires confirm) | Risk-based per statement |
 
 ---
 
-## 环境变量配置
+## Environment Variables
 
-| 变量 | 说明 | 默认值 |
+| Variable | Description | Default |
 |---|---|---|
-| `DB_TYPE` | 数据库类型：`mysql` / `mariadb` / `tidb` / `postgresql` / `sqlite` / `oracle` / `sqlserver` | `sqlite` |
-| `DB_HOST` | 主机地址 | `localhost` |
-| `DB_PORT` | 端口 | 各数据库默认端口 |
-| `DB_USER` | 用户名 | - |
-| `DB_PASSWORD` | 密码 | - |
-| `DB_NAME` | 数据库名（SQLite 无需） | `mcp-db` |
-| `DB_FILE` | SQLite 文件路径（仅 SQLite） | `mcp.db` |
+| `DB_TYPE` | Database type: `mysql` / `mariadb` / `tidb` / `postgresql` / `sqlite` / `oracle` / `sqlserver` | `sqlite` |
+| `DB_HOST` | Host address | `localhost` |
+| `DB_PORT` | Port | Database default |
+| `DB_USER` | Username | - |
+| `DB_PASSWORD` | Password | - |
+| `DB_NAME` | Database name (not required for SQLite) | `mcp-db` |
+| `DB_FILE` | SQLite file path (SQLite only) | `mcp.db` |
 
 ---
 
-## 数据库配置示例
+## Database Configuration Examples
 
 ### MySQL
 
@@ -120,15 +123,15 @@ npx @turingdance/database-mcp
 
 ### MariaDB / TiDB
 
-配置方式与 MySQL 完全相同，仅需将 `DB_TYPE` 改为 `mariadb` 或 `tidb`。
+Configuration is identical to MySQL — simply change `DB_TYPE` to `mariadb` or `tidb`.
 
 ---
 
-## WorkBuddy / Claude Desktop 配置
+## WorkBuddy / Claude Desktop Configuration
 
-### 配置文件格式
+### Configuration File Format
 
-将以下配置写入 `~/.workbuddy/mcp.json` 或 Claude Desktop 的 MCP 配置文件：
+Add the following to `~/.workbuddy/mcp.json` or Claude Desktop's MCP configuration file:
 
 ```json
 {
@@ -152,9 +155,9 @@ npx @turingdance/database-mcp
 }
 ```
 
-### 本地源码配置
+### Local Source Configuration
 
-如果使用本地源码：
+If using local source code:
 
 ```json
 {
@@ -177,83 +180,84 @@ npx @turingdance/database-mcp
 
 ---
 
-## 安全机制
+## Security Mechanism
 
-| 等级 | 关键字 | 行为 |
+| Level | Keywords | Behavior |
 |---|---|---|
-| **高危** | DROP, TRUNCATE, ALTER | 需 `confirm: true`，服务端记日志 |
-| **中危** | INSERT, DELETE, UPDATE, REPLACE, RENAME, GRANT, REVOKE | 需 `confirm: true` |
-| **低危** | SELECT, SHOW, DESCRIBE, PRAGMA 等 | 直接执行 |
+| **High-risk** | DROP, TRUNCATE, ALTER | Requires `confirm: true`, logged on server |
+| **Medium-risk** | INSERT, DELETE, UPDATE, REPLACE, RENAME, GRANT, REVOKE | Requires `confirm: true` |
+| **Low-risk** | SELECT, SHOW, DESCRIBE, PRAGMA, etc. | Executes directly |
 
-### 未确认时响应
+### Response Without Confirmation
 
 ```json
 {
   "status": "rejected",
   "risk_level": "medium",
   "detected_operation": "INSERT",
-  "message": "检测到中危（数据变更）操作 [INSERT]，必须传入 confirm: true 才能执行。"
+  "message": "Medium-risk operation [INSERT] detected. You must pass confirm: true to execute."
 }
 ```
 
-### 确认后执行
+### Execution With Confirmation
 
 ```json
 {
   "tool": "execute",
   "arguments": {
-    "sql": "INSERT INTO users (name, email) VALUES ('张三', 'zhangsan@example.com')",
+    "sql": "INSERT INTO users (name, email) VALUES ('John', 'john@example.com')",
     "confirm": true,
-    "reason": "测试插入数据"
+    "reason": "Test insert operation"
   }
 }
 ```
 
 ---
 
-## 使用示例
+## Usage Examples
 
-### 查询数据库
+### Query Database
 
 ```
-查询所有表
+List all tables
 ```
 
-AI 会调用 `list_tables` 工具。
+AI will call the `list_tables` tool.
 
 ---
 
 ```
-查看 users 表的结构
+Show the structure of the users table
 ```
 
-AI 会调用 `describe_table` 工具。
+AI will call the `describe_table` tool.
 
 ---
 
 ```
-查询 users 表的前10条数据
+Query the first 10 rows from the users table
 ```
 
-AI 会调用 `query` 工具执行 SELECT 语句。
+AI will call the `query` tool to execute a SELECT statement.
 
-### 插入数据
+### Insert Data
 
 ```
-向 users 表插入一条数据：name=张三，email=zhangsan@example.com
+Insert a record into the users table: name=John, email=john@example.com
 ```
 
-AI 会：
-1. 尝试执行 INSERT（被拦截）
-2. 提示需要确认
-3. 您确认后，再次执行（带 confirm）
+AI will:
+
+1. Attempt to execute INSERT (intercepted)
+2. Prompt for confirmation
+3. After you confirm, execute again (with confirm flag)
 
 ---
 
-## 技术栈
+## Tech Stack
 
 - Node.js (ESM) + `@modelcontextprotocol/server` v2 + zod v4
-- 驱动：mysql2（MySQL/MariaDB/TiDB） / pg / better-sqlite3 / oracledb / tedious（SQL Server）
+- Drivers: mysql2 (MySQL/MariaDB/TiDB) / pg / better-sqlite3 / oracledb / tedious (SQL Server)
 
 ---
 
@@ -263,7 +267,7 @@ ISC
 
 ---
 
-## 问题反馈
+## Feedback
 
 - GitHub Issues: https://github.com/turingdance/database-mcp/issues
 - Email: 271151388@qq.com

@@ -1,7 +1,7 @@
 {
   "name": "@turingdance/database-mcp",
-  "version": "1.0.0",
-  "description": "MCP 数据库工具服务（支持 MySQL / MariaDB / TiDB / PostgreSQL / SQLite / Oracle / SQL Server）",
+  "version": "1.0.1",
+  "description": "MCP database utils （suport MySQL / MariaDB / TiDB / PostgreSQL / SQLite / Oracle / SQL Server）",
   "type": "module",
   "main": "index.js",
   "bin": {
